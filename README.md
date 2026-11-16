@@ -1,38 +1,21 @@
-# WoWs Replay Watcher
+# WoWs Monitor Companion
 
-A small Iced desktop app for Linux and Windows. It resolves the replay directory from a selected World of Warships game folder and copies `tempArenaInfo.json` to a selected destination whenever the file is created or changed.
+WoWs Monitor Companion is a small tray app that helps WoWs Monitor read battle replay data when Chrome cannot access the game's system folders through its file API.
 
-## Use
+The companion watches the replay folder used by your World of Warships client and copies `tempArenaInfo.json` to a folder you choose. WoWs Monitor can then use the copied file without needing browser access to the game's protected folders.
 
-1. Start the app and select the game installation folder that contains `preferences.xml` and `bin/`.
-2. Select the folder where copied `tempArenaInfo.json` files should be placed.
-3. Choose **Save and start monitoring**.
+## Getting started
 
-The app loads regional client and folder versions from `https://wows-monitor.com/api/game-version/`. If the API cannot be reached, it falls back to the installed `bin/` folders and `preferences.xml`, matching the browser app's fallback behavior.
+1. Start WoWs Monitor Companion.
+2. Choose your World of Warships installation folder.
+3. Choose a destination folder for the copied `tempArenaInfo.json` file, such as a folder you can select from WoWs Monitor.
+4. Select **Save and start monitoring**.
+5. In WoWs Monitor, drag and drop in the destination folder you selected.
 
-The polling interval is 500 ms. The app watches the resolved replay folder and the relevant game configuration entries. If replay settings change, it resolves the replay folder again. An existing `tempArenaInfo.json` is copied when monitoring starts.
+The companion finds the replay folder from your game configuration. If replay settings change, it updates the folder it watches. An existing `tempArenaInfo.json` file is copied when monitoring starts, and new or changed files are copied as they appear.
 
-Closing the window leaves the app in the system tray. Right-click the tray icon to open the window or quit; reconfigure folders from the window. **Start this app when I log in** enables the platform's per-user startup entry and launches the app minimized.
+Closing the app window leaves it running in the system tray. Use the tray icon to reopen the window or quit the app. Enable **Start this app when I log in** in the app if you want it to start minimized each time you sign in.
 
-## Build
+## More information
 
-Install Rust and Cargo, then run:
-
-```sh
-cargo run --release
-```
-
-### Cross-build for Windows from Linux
-
-Use Rust's GNU Windows target and a MinGW-w64 linker. On Debian or Ubuntu:
-
-```sh
-sudo apt install gcc-mingw-w64-x86-64
-rustup target add x86_64-pc-windows-gnu
-CARGO_TARGET_X86_64_PC_WINDOWS_GNU_LINKER=x86_64-w64-mingw32-gcc \
-  cargo build --release --target x86_64-pc-windows-gnu
-```
-
-The executable is `target/x86_64-pc-windows-gnu/release/wows-replay-watcher.exe`. Fedora provides the cross-linker as `mingw64-gcc` (`sudo dnf install mingw64-gcc`); Arch Linux provides it in `mingw-w64-gcc` (`sudo pacman -S mingw-w64-gcc`).
-
-The Windows GNU target produces a Windows executable with the GNU ABI. For an MSVC ABI build, build on Windows with the MSVC toolchain. Linux tray menus use the StatusNotifier/KStatusNotifier backend; the desktop environment must provide a compatible tray host.
+See [How to build](docs/how-to-build.md) for developer build instructions.
