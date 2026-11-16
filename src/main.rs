@@ -416,24 +416,23 @@ fn view(app: &App, _window: window::Id) -> Element<'_, Message> {
 
 fn setup_view(app: &App) -> Element<'_, Message> {
     let can_start = valid_configuration(&app.config);
-    let mut actions = row![
-        checkbox(app.autostart_enabled)
-            .label("Start when I log in")
-            .on_toggle(Message::SetAutostart)
-    ]
+    let mut actions = row![iced::widget::Space::new().width(Fill)]
     .spacing(12)
-    .align_y(Alignment::Center);
-    if can_start {
-        actions = actions.push(button("Start monitoring").on_press(Message::StartMonitoring));
-    } else {
-        actions = actions.push(button("Start monitoring"));
-    }
+    .align_y(Alignment::Center)
+    .width(Fill);
     if valid_configuration(&app.active_config) {
         actions = actions.push(
-            button("Cancel")
+            padded_button("Cancel")
                 .style(button::secondary)
                 .on_press(Message::CancelReconfigure),
         );
+    }
+    if can_start {
+        actions = actions.push(
+            padded_button("Start monitoring").on_press(Message::StartMonitoring),
+        );
+    } else {
+        actions = actions.push(padded_button("Start monitoring"));
     }
 
     let mut content = column![
@@ -520,16 +519,18 @@ fn monitor_view(app: &App) -> Element<'_, Message> {
             detail_card("COPY DESTINATION", app.config.target_folder.as_deref()),
         ]
         .spacing(12),
-        checkbox(app.autostart_enabled)
-            .label("Start when I log in")
-            .on_toggle(Message::SetAutostart),
         row![
-            button("Reconfigure")
+            checkbox(app.autostart_enabled)
+                .label("Start when I log in")
+                .on_toggle(Message::SetAutostart),
+            iced::widget::Space::new().width(Fill),
+            padded_button("Reconfigure")
                 .style(button::secondary)
                 .on_press(Message::Reconfigure),
-            button(close_label).on_press(Message::HideWindow),
+            padded_button(close_label).on_press(Message::HideWindow),
         ]
-        .spacing(12),
+        .spacing(12)
+        .align_y(Alignment::Center),
     ]
     .spacing(14)
     .padding(24);
@@ -586,12 +587,18 @@ fn folder_picker<'a>(
         ]
         .spacing(5)
         .width(Fill),
-        button(button_label)
+        padded_button(button_label)
             .style(button::secondary)
             .on_press(message),
     ]
     .spacing(14)
     .align_y(Alignment::Center)
+}
+
+fn padded_button<'a>(
+    content: impl Into<Element<'a, Message>>,
+) -> iced::widget::Button<'a, Message> {
+    button(content).padding([8, 14])
 }
 
 fn detail_card<'a>(label: &'a str, path: Option<&Path>) -> Element<'a, Message> {
@@ -604,6 +611,7 @@ fn detail_card<'a>(label: &'a str, path: Option<&Path>) -> Element<'a, Message> 
     )
     .padding(14)
     .width(Fill)
+    .height(Length::Fixed(80.0))
     .style(container::bordered_box)
     .into()
 }
