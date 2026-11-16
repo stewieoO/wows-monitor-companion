@@ -26,7 +26,7 @@ use std::{
     time::Duration,
 };
 use tray_icon::{
-    Icon, TrayIcon, TrayIconBuilder,
+    Icon, MouseButton, TrayIcon, TrayIconBuilder, TrayIconEvent,
     menu::{Menu, MenuEvent, MenuItem},
 };
 
@@ -302,6 +302,17 @@ fn update(app: &mut App, message: Message) -> Task<Message> {
                 .as_ref()
                 .map(|_| {
                     let mut actions = Vec::new();
+                    while let Ok(event) = TrayIconEvent::receiver().try_recv() {
+                        if matches!(
+                            event,
+                            TrayIconEvent::Click {
+                                button: MouseButton::Left,
+                                ..
+                            }
+                        ) {
+                            actions.push(TrayAction::Open);
+                        }
+                    }
                     while let Ok(event) = MenuEvent::receiver().try_recv() {
                         match event.id.as_ref() {
                             TRAY_OPEN => actions.push(TrayAction::Open),
