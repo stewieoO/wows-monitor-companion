@@ -36,7 +36,7 @@ const TRAY_QUIT: &str = "quit";
 
 fn main() -> iced::Result {
     iced::daemon(boot, update, view)
-        .title("WoWs Replay Watcher")
+        .title("WoWs Monitor Companion")
         .subscription(subscription)
         .theme(app_theme)
         .run()
@@ -116,7 +116,7 @@ fn boot() -> (App, Task<Message>) {
         setup_mode: !is_configured,
         status: config_warning.unwrap_or_else(|| {
             if is_configured {
-                "Starting the replay watcher…".to_owned()
+                "Starting the companion…".to_owned()
             } else {
                 "Choose the World of Warships game folder and a destination folder.".to_owned()
             }
@@ -238,7 +238,7 @@ fn update(app: &mut App, message: Message) -> Task<Message> {
             app.resolved_replay_path = None;
             app.resolved_region = None;
             app.last_copied_path = None;
-            app.status = "Starting the replay watcher…".to_owned();
+            app.status = "Starting the companion…".to_owned();
             app.status_is_error = false;
             app.start_worker();
             Task::none()
@@ -500,7 +500,7 @@ fn monitor_view(app: &App) -> Element<'_, Message> {
     };
 
     let content = column![
-        brand_header("Replay watcher", tray_message),
+        brand_header("WoWs Monitor Companion", tray_message),
         status_panel(app),
         container(
             column![
@@ -651,13 +651,13 @@ fn path_text(path: Option<&Path>) -> String {
 
 impl TrayHandle {
     fn new() -> Result<Self, String> {
-        let open = MenuItem::with_id(TRAY_OPEN, "Open WoWs Replay Watcher", true, None);
+        let open = MenuItem::with_id(TRAY_OPEN, "Open WoWs Monitor Companion", true, None);
         let quit = MenuItem::with_id(TRAY_QUIT, "Quit", true, None);
         let menu = Menu::with_items(&[&open, &quit]).map_err(|error| error.to_string())?;
         let icon =
             Icon::from_rgba(monitor_logo_rgba(64), 64, 64).map_err(|error| error.to_string())?;
         let icon = TrayIconBuilder::new()
-            .with_tooltip("WoWs Replay Watcher")
+            .with_tooltip("WoWs Monitor Companion")
             .with_menu(Box::new(menu))
             .with_icon(icon)
             .build()

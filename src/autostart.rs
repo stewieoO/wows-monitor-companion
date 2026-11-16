@@ -1,7 +1,7 @@
 use auto_launch::{AutoLaunch, AutoLaunchBuilder};
 use std::{env, error::Error};
 
-const APP_NAME: &str = "WoWs Replay Watcher";
+const APP_NAME: &str = "WoWs Monitor Companion";
 
 fn launcher() -> Result<AutoLaunch, Box<dyn Error>> {
     let executable = env::current_exe()?;

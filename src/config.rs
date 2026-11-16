@@ -10,7 +10,7 @@ pub struct AppConfig {
 }
 
 fn config_path() -> io::Result<PathBuf> {
-    let dirs = ProjectDirs::from("com", "WoWs Monitor", "Replay Watcher")
+    let dirs = ProjectDirs::from("com", "WoWs Monitor", "Companion")
         .ok_or_else(|| io::Error::other("Could not locate the user config directory."))?;
     Ok(dirs.config_dir().join("settings.json"))
 }

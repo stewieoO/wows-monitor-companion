@@ -23,7 +23,7 @@ CARGO_TARGET_X86_64_PC_WINDOWS_GNU_LINKER=x86_64-w64-mingw32-gcc \
   cargo build --release --target x86_64-pc-windows-gnu
 ```
 
-The executable is `target/x86_64-pc-windows-gnu/release/wows-replay-watcher.exe`.
+The executable is `target/x86_64-pc-windows-gnu/release/wows-monitor-companion.exe`.
 
 On Fedora, install the cross-linker with `sudo dnf install mingw64-gcc`. On Arch Linux, install it with `sudo pacman -S mingw-w64-gcc`.
 
