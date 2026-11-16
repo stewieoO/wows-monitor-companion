@@ -30,3 +30,14 @@ On Fedora, install the cross-linker with `sudo dnf install mingw64-gcc`. On Arch
 The Windows GNU target produces an executable with the GNU ABI. To build with the MSVC ABI, build on Windows with the MSVC toolchain.
 
 On Linux, tray menus use the StatusNotifier/KStatusNotifier backend, so the desktop environment needs a compatible tray host.
+
+## Publish a GitHub release
+
+Push a version tag such as `v0.1.0` to start the GitHub Actions release workflow:
+
+```sh
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+Keep the tag version in sync with the package version in `Cargo.toml`. The workflow builds on native Linux and Windows runners, then creates a GitHub Release with generated release notes and attaches the Linux `.tar.gz` archive and Windows `.exe`.
