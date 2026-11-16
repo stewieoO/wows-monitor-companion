@@ -1,5 +1,7 @@
 # WoWs Monitor Companion
 
+<img src="assets/wows-monitor-icon.png" alt="WoWs Monitor Companion icon" width="64">
+
 WoWs Monitor Companion is a small tray app that helps WoWs Monitor read battle replay data when Chrome cannot access the game's system folders through its file API.
 
 The companion watches the replay folder used by your World of Warships client and copies `tempArenaInfo.json` to a folder you choose. WoWs Monitor can then use the copied file without needing browser access to the game's protected folders.
