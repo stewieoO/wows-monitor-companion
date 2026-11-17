@@ -532,7 +532,7 @@ fn monitor_view(app: &App) -> Element<'_, Message> {
         .spacing(12),
         row![
             checkbox(app.autostart_enabled)
-                .label("Start when I log in")
+                .label("Automatically start with Windows")
                 .on_toggle(Message::SetAutostart),
             iced::widget::Space::new().width(Fill),
             padded_button("Reconfigure")
