@@ -13,7 +13,9 @@ Download the latest executable from the [Releases page](https://github.com/stewi
 
 1. Start WoWs Monitor Companion.
 2. Choose your World of Warships installation folder.
-3. Choose a destination folder for the copied `tempArenaInfo.json` file, such as a folder you can select from WoWs Monitor.
+3. Choose a destination folder. 
+   - This can be any folder of your choosing, as long as it is not in one of the blocked paths.
+   - Unfortunately the list of blocked paths is not easily readable, so you might have to ensure that the monitor can actually select the destination folder.
 4. Select **Save and start monitoring**.
 5. In WoWs Monitor, drag and drop in the destination folder you selected.
 
