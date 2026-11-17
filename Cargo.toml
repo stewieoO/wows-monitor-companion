@@ -1,8 +1,13 @@
 [package]
 name = "wows-monitor-companion"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2024"
 description = "A small tray app that copies WoWs tempArenaInfo.json files to workaround the chrome system folder issue"
+
+[package.metadata.winres]
+ProductName = "WoWs Monitor Companion"
+FileDescription = "WoWs Monitor Companion"
+OriginalFilename = "wows-monitor-companion.exe"
 
 [dependencies]
 auto-launch = "0.6"
@@ -20,3 +25,6 @@ tray-icon = { version = "0.26", default-features = false, features = ["ksni"] }
 lto = "thin"
 codegen-units = 1
 strip = true
+
+[build-dependencies]
+winres = "0.1"
