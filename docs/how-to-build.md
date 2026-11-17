@@ -24,6 +24,7 @@ CARGO_TARGET_X86_64_PC_WINDOWS_GNU_LINKER=x86_64-w64-mingw32-gcc \
 ```
 
 The executable is `target/x86_64-pc-windows-gnu/release/wows-monitor-companion.exe`.
+The Windows executable embeds the app icon from `assets/wows-monitor-icon.ico`.
 
 On Fedora, install the cross-linker with `sudo dnf install mingw64-gcc`. On Arch Linux, install it with `sudo pacman -S mingw-w64-gcc`.
 
